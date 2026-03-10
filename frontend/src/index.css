@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Clean Light Mode - Grayscale Only */
+    --background: 0 0% 100%; /* White */
+    --foreground: 0 0% 9%; /* Almost Black */
+    
+    /* Elegant Primary (Black/Dark Gray) */
+    --primary: 0 0% 9%; /* Very dark gray / black */
+    --primary-foreground: 0 0% 100%;
+    
+    --muted: 0 0% 96%; /* Light gray */
+    --muted-foreground: 0 0% 45%;
+    
+    --border: 0 0% 89%;
+    --ring: 0 0% 9%;
+    
+    --destructive: 0 0% 9%;
+    
+    --radius: 0.5rem;
+
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-[#fefefe] text-foreground antialiased selection:bg-gray-200;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+}
+
+@layer components {
+  /* Clean, Minimal Cards */
+  .card-minimal {
+    @apply bg-white border border-border rounded-[var(--radius)];
+  }
+  
+  /* Primary Button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center bg-[hsl(var(--primary))] text-white rounded-[var(--radius)] px-5 py-2.5 text-sm font-medium transition-all hover:bg-black/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  /* Secondary Button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center bg-white border border-border rounded-[var(--radius)] px-4 py-2 text-sm font-medium text-foreground transition-all hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  /* Destructive Button (Now Grayscale) */
+  .btn-destructive {
+    @apply inline-flex items-center justify-center bg-white text-gray-900 border border-gray-300 rounded-[var(--radius)] px-4 py-2 text-sm font-medium transition-all hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+  
+  .input-field {
+    @apply flex w-full border border-border bg-white rounded-md px-4 py-2 text-sm transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-300 focus-visible:border-gray-300 disabled:cursor-not-allowed disabled:opacity-50 placeholder:text-muted-foreground;
+  }
+
+  /* Soft Status Badges (All Grayscale) */
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 text-[11px] font-medium tracking-wide rounded border border-border bg-gray-50 text-gray-600;
+  }
+}

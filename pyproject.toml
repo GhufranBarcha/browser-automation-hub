@@ -1,9 +1,17 @@
 [project]
 name = "browseruse-jahaadbeckford"
 version = "0.1.0"
-description = "Add your description here"
+description = "BrowserUse Task Queue App"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "browser-use>=0.12.1",
+    "fastapi",
+    "uvicorn[standard]",
+    "python-multipart",
+    "python-dotenv",
+    "jinja2",
+    "itsdangerous",
+    "sqlalchemy[asyncio]>=2.0",
+    "aiosqlite",
 ]
