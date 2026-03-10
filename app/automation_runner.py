@@ -109,7 +109,7 @@ async def run_automation(
         # SDK: BrowserSession(headless=...) — use headless=True for server/worker runs.
         # User explicitly set headless=False to see the browser window.
         browser = BrowserSession(
-            headless=False,
+            headless=os.environ.get("BROWSER_HEADLESS", "true").lower() == "true",
             enable_default_extensions=False,
         )
 
@@ -122,7 +122,9 @@ async def run_automation(
             task_id=task_id,
             register_should_stop_callback=should_stop,
             register_new_step_callback=on_new_step,
-            # Env-var timeouts set in main.py/config cover: launch, start, upload events
+            # Speed optimizations
+            # max_actions_per_step=10,  # Fill multiple form fields per LLM call (default: 4)
+            use_vision='auto',        # Only take screenshots when needed (default: True = every step)
         )
 
         logger.info(f"[task:{task_id[-8:]}] Starting automation — model={LLM_MODEL}")

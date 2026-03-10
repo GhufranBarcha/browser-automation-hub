@@ -1,6 +1,7 @@
 """FastAPI application entry point."""
 import asyncio
 import logging
+import os
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -47,13 +48,18 @@ app = FastAPI(
 )
 
 # CORS: allow React dev server + same-origin in production
+_default_origins = [
+    "http://localhost:5173",   # Vite dev server
+    "http://localhost:3000",
+    "http://127.0.0.1:5173",
+]
+_extra = os.environ.get("CORS_ORIGINS", "")
+if _extra:
+    _default_origins.extend([o.strip() for o in _extra.split(",") if o.strip()])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",   # Vite dev server
-        "http://localhost:3000",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=_default_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
