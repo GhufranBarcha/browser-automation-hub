@@ -1,73 +1,52 @@
-# React + TypeScript + Vite
+# Frontend — `frontend/`
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 single-page application built with Vite and TailwindCSS.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React 19** + TypeScript
+- **Vite** — build tool and dev server
+- **TailwindCSS** — utility-first styling
+- **React Router v7** — client-side routing
+- **TanStack React Query** — server state management and caching
+- **Axios** — HTTP client for API calls
+- **Lucide React** — icon library
 
-## React Compiler
+## Pages
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| File                  | Route            | Description                              |
+|-----------------------|------------------|------------------------------------------|
+| `LoginPage.tsx`       | `/login`         | Email + password login form              |
+| `DashboardPage.tsx`   | `/dashboard`     | Task list, queue summary, submit new task|
+| `TaskDetailPage.tsx`  | `/tasks/:taskId` | Detailed task view with live event log   |
 
-## Expanding the ESLint configuration
+## Components
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| File              | Description                                       |
+|-------------------|---------------------------------------------------|
+| `SubmitForm.tsx`  | Form to create new tasks (prompt + PDF upload)     |
+| `TaskTable.tsx`   | Table displaying all tasks with status and actions |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## API Layer
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| File          | Description                                      |
+|---------------|--------------------------------------------------|
+| `client.ts`   | Axios instance configured with base URL + cookies|
+| `types.ts`    | TypeScript interfaces matching backend schemas    |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Development
+
+```bash
+npm install
+npm run dev       # http://localhost:5173 with HMR
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The Vite dev server proxies `/api/*` requests to the FastAPI backend at `http://127.0.0.1:8000`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Production Build
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build     # outputs to dist/
 ```
+
+The `dist/` folder contains static files served by Nginx in production.
