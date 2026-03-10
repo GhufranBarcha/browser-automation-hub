@@ -61,11 +61,22 @@ async def _run_task(task: Task) -> None:
         await _log_event(task_id, "started", f"Automation started (attempt #{task.attempt_count + 1})")
         logger.info(f"[worker] Running task {task_id[-8:]}")
 
+        # Live step callback — called by run_automation after each browser-use step.
+        # Writes a "step" event to the DB so the Details page shows real-time progress.
+        async def step_callback(step_num: int, goal: str, url: str | None) -> None:
+            msg = f"Step {step_num}"
+            if goal:
+                msg += f": {goal}"
+            if url:
+                msg += f" ({url})"
+            await _log_event(task_id, "step", msg)
+
         result = await run_automation(
             prompt=task.prompt_text,
             pdf_path=task.pdf_path,
             task_id=task_id,
             cancel_flag=cancel_flag,
+            step_callback=step_callback,
         )
 
         # Check if cancel was requested (may have been set during run)

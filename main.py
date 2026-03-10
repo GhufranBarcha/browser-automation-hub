@@ -14,56 +14,177 @@ PDF_PATH = "/home/ghufranbarcha/Desktop/Freelance Task/BrowserUse-jahaadbeckford
 
 task = f"""
 Go this this website https://portal.consumerfinance.gov/consumer/s/login/ 
-Then login using these details userid charlesdavison1780@gmail.com  password: 1323Lotuscourt@
-1. You will be on page Submit a complaint Step 1 of 5, Tick the fields as Follow
-Choose the project  or services that best matches your complaint:
-Credit reporting or other personal consumer reports
+Then login using these details:
+Userid: charlesdavison1780@gmail.com
+Password: 1323Lotuscourt@
 
-What type of credit reporting product?
+
+1. You will be on page Submit a complaint Step 1 of 5, Tick the fields as Follow
+
+Step 1:
+
+1.1 What is this complaint about?
+Choose the product or service that best matches your complaint.
+Credit reporting or other personal consumer reports(background checks, employment, or tenant screening)
+
+
+1.2 What type of credit reporting product?
 Credit reporting
 
 Then Press Next
 
-2. What type of Problem are you having?
-Incorrect information on your report
+Step 2:
+
+2.1 What type of problem are you having?
+Most of the credit reporting complaints we get are about one of the following topics. Select the one that best describes your complaint. You will have the chance to explain your complaint in detail in the next step.
+Incorrect information on your report(account or personal information incorrect, information not mine)
 
 
-what best describe your problem?
-Information belong to someone else
+2.1 Which best describes your problem?
+Information belongs to someone else(identity theft, error)
 
-Have you tried to fix this problem with the company?
-yes
-
-Did you request from the company?
+2.1 Have you already tried to fix this problem with the company?
 Yes
 
-What information Did you request?
+2.3 Did you request information from the company?
+Yes
+
+2.4 What information did you request? (optional)
 leave empty
 
-Did the company provide this information?
+2.5 Did the company provide this information?
 No
 
 Then Press Next:
-Describe what happend and we'll send your comments to the companies involved.
+
+Step 3:
+
+
+
+3.1 What happened?
+Describe what happened, and we’ll send your comments to the companies involved.
 Write this : Hi after reviewing my credit file I notice I had several negative on my credit report that werent mine
 
 
-What would be a fair resolution to this?
-I want these negatives itemns removed off my credit profile
+3.2 What would be a fair resolution to this issue?
+Write this: I want these negatives itemns removed off my credit profile
 
-Before pressing Next from this page, upload this supporting PDF file:
+3.3 Attach documents Upload the File
 {PDF_PATH}
-If upload is on a different step, continue and upload on the first page that requests supporting documents.
 
 Then press Next:
 
-Credit reporting company
-write exactly 'Experian'
+Step 4:
 
-We need this information to help the company find you in their system and respond to your complaint
+
+4.1 What company is this complaint about?
+Start typing the 'Company name' below. Select a company from the list or provide the company’s contact information.
+
+Credit Reporting company: Company Name
+write exactly 'Experian' then select'Experian'
+
+4.2 We need this information to help the company find you in their system and respond to your complaint.
 Check all three - social security , Name as  , Date of Birth
 
-Social Security Number (last 4 Digit)
+4.3 Social Security number (last 4 digits)
+3334
+
+4.4 Date of birth
+01 01 1990
+
+4.5 Name as it appears on credit report
+Jiquan Duck
+
+4.6 Do you want to complain about another company?
+Write 'TransUnion' and select 'TransUnion'
+
+4.7 Have you already tried to fix this problem with the company?
+Yes
+
+4.8 Did you request information from the company?
+Yes
+
+4.9 What information did you request? (optional)
+Leave empty
+
+4.10 Did the company provide this information?
+Yes
+
+4.11 We need this information to help the company find you in their system and respond to your complaint. (optional)
+Select all three: Social Security, Name, Date of Birth
+
+4.12 Social Security number (last 4 digits)
+0446
+
+4.13 Date of birth
+01 01 1990
+
+4.14 Name as it appears on credit report
+Jiquan Duck
+
+4.15 Do you want to complain about another company?
+Yes
+
+4.16 Additional company
+Company name
+Write 'equifax,' and select 'EQUIFAX, INC.'
+
+
+4.17 Have you already tried to fix this problem with the company?
+Yes
+
+4.18 Did you request information from the company?
+Yes
+
+4.19 What information did you request? (optional)
+Leave empty
+
+4.20 Did the company provide this information?
+Yes
+
+4.21 We need this information to help the company find you in their system and respond to your complaint. (optional)
+Select all three: Social Security, Name, Date of Birth
+
+4.22 Social Security number (last 4 digits)
+0446
+
+4.23 Date of birth
+01 01 1990
+
+4.24 Name as it appears on credit report
+Jiquan Duck
+
+
+Then Press Next:
+
+Step 5:
+
+5.1 Who are you submitting this complaint for?
+Myself (I am submitting this complaint for myself)
+
+5.2 Address line 1
+465 wood street
+
+5.3 
+City: mt laurel
+state: selet New Jersey from dropdown
+zip: 08046
+
+And then Just click review at the bottom
+
+
+Then
+Review your complaint Page:
+
+Scroll Down and click both:
+I authorize and direct (1) the consumer reporting agency identified.
+
+The information given is true to
+
+Then Submit Your Compliant Button
+
+
+
 
 """
 

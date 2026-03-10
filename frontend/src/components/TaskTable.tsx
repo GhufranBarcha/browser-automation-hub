@@ -101,7 +101,7 @@ export function TaskTable({ tasks, title, emptyMessage }: Props) {
                   {formatDate(task.created_at)}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right">
-                  <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex justify-end gap-2 transition-opacity">
                     {(task.status === 'queued' || task.status === 'running') && (
                       <button
                         onClick={() => cancelMutation.mutate(task.id)}

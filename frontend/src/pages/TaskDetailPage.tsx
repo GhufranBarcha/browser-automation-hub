@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams, Link } from 'react-router-dom';
 import { api } from '../api/client';
 import type { TaskDetail } from '../api/types';
-import { ArrowLeft, Clock, Server, CheckCircle2, XCircle, AlertCircle, FileText } from 'lucide-react';
+import { ArrowLeft, Clock, Server, CheckCircle2, XCircle, AlertCircle, FileText, Play } from 'lucide-react';
 
 export function TaskDetailPage() {
   const { taskId } = useParams<{ taskId: string }>();
@@ -48,12 +48,14 @@ export function TaskDetailPage() {
     switch (type) {
       case 'queued': return <Clock size={16} className="text-gray-400" />;
       case 'started': return <Server size={16} className="text-gray-500" />;
+      case 'step': return <Play size={16} className="text-gray-400" />;
       case 'completed': return <CheckCircle2 size={16} className="text-gray-600" />;
       case 'failed': return <AlertCircle size={16} className="text-gray-700" />;
       case 'cancelled': return <XCircle size={16} className="text-gray-400" />;
       default: return <Server size={16} className="text-gray-300" />;
     }
   };
+
 
   const formatDate = (dateStr: string | null) => {
     if (!dateStr) return '-';
