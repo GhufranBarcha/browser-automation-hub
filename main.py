@@ -4,12 +4,15 @@ import os
 # First launch can exceed the default 30s timeout on some machines.
 os.environ.setdefault("TIMEOUT_BrowserStartEvent", "120")
 os.environ.setdefault("TIMEOUT_BrowserLaunchEvent", "120")
+os.environ.setdefault("TIMEOUT_UploadFileEvent", "120")
 
 from browser_use import Agent, Browser, ChatAnthropic
 # from browser_use import ChatGoogle  # ChatGoogle(model='gemini-3-flash-preview')
 # from browser_use import ChatBrowserUse
 
-task = """
+PDF_PATH = "/home/ghufranbarcha/Desktop/Freelance Task/BrowserUse-jahaadbeckford/burhan_cv.pdf"
+
+task = f"""
 Go this this website https://portal.consumerfinance.gov/consumer/s/login/ 
 Then login using these details userid charlesdavison1780@gmail.com  password: 1323Lotuscourt@
 1. You will be on page Submit a complaint Step 1 of 5, Tick the fields as Follow
@@ -48,6 +51,10 @@ Write this : Hi after reviewing my credit file I notice I had several negative o
 What would be a fair resolution to this?
 I want these negatives itemns removed off my credit profile
 
+Before pressing Next from this page, upload this supporting PDF file:
+{PDF_PATH}
+If upload is on a different step, continue and upload on the first page that requests supporting documents.
+
 Then press Next:
 
 Credit reporting company
@@ -73,12 +80,19 @@ async def main() -> None:
         # use_cloud=True,  # Use a stealth browser on Browser Use Cloud
     )
 
+    if not os.path.isfile(PDF_PATH):
+        raise RuntimeError(
+            f"PDF file not found at: {PDF_PATH}\n"
+            "Set PDF_PATH to an existing absolute file path."
+        )
+
     agent = Agent(
         task=task,
         llm=ChatAnthropic(model='claude-sonnet-4-6'),
         # llm=ChatGoogle(model='gemini-3-flash-preview'),
         # llm=ChatBrowserUse(),
         browser=browser,
+        available_file_paths=[PDF_PATH],
     )
     await agent.run()
 
