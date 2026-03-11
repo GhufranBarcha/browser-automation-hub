@@ -8,16 +8,19 @@ This guide deploys both the FastAPI backend and React frontend on a single Ubunt
 - **4 GB+ RAM** (each browser task uses ~500MB; `MAX_CONCURRENCY=3` needs ~2GB for browsers alone)
 - **2+ vCPUs** recommended
 
-## Architecture on Server
+## Security Architecture
 
 ```
-Internet → Nginx (:80/443)
-             ├── /api/*  → FastAPI (uvicorn :8000)
-             │              ├── Background Worker
-             │              ├── Playwright/Chromium (headless)
-             │              └── SQLite DB
-             └── /*      → React static files (dist/)
+User Browser → Port 80/443 (Public) → Nginx
+                                       │
+                                       ├─ [Frontend Static Files]
+                                       └─ [API Proxy] → Port 8000 (Private/Local)
 ```
+
+**Key Security Features:**
+- **Hidden Backend:** Port 8000 is restricted to `127.0.0.1`. It cannot be accessed directly from the internet.
+- **Single Entry Point:** All traffic flows through Nginx.
+- **Firewall Isolation:** We explicitly allow only HTTP (80) and HTTPS (443) traffic.
 
 ---
 
@@ -39,6 +42,12 @@ apt install -y nodejs
 
 # Nginx, git, and build tools
 apt install -y nginx git curl
+
+# Firewall Setup (Crucial: ONLY expose Web Ports)
+ufw allow 22/tcp    # SSH
+ufw allow 80/tcp    # HTTP
+ufw allow 443/tcp   # HTTPS
+ufw --force enable
 
 # uv (Python package manager)
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -226,6 +235,7 @@ systemctl restart browseruse
 | `playwright` not found | Run `playwright install --with-deps chromium` inside the venv |
 | Browser crashes on VPS | Ensure `BROWSER_HEADLESS=true` in `.env` |
 | 502 Bad Gateway | Check if uvicorn is running: `systemctl status browseruse` |
+| Port 8000 Refused | This is expected! Access the API via `http://YOUR_IP/api/health` instead |
 | CORS errors | Add your domain to `CORS_ORIGINS` in `.env` and restart |
 | Out of memory | Reduce `MAX_CONCURRENCY` to `1` or upgrade VPS RAM |
 | Permission denied | Ensure `/opt/browseruse-app/uploads/` is writable |

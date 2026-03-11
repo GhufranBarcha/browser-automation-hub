@@ -47,3 +47,7 @@ queued → running → completed
 - `MAX_CONCURRENCY` — controls how many browser tasks run simultaneously (default: 3)
 - `BROWSER_HEADLESS` — `true` for servers (no display), `false` for local debugging
 - `LLM_MODEL` — which Claude model to use for the AI agent
+
+## Security Note
+
+In production, the FastAPI app should bind to `127.0.0.1:8000`. This ensures it is only accessible locally by the Nginx reverse proxy. **Do not expose port 8000 in your firewall.** All external requests should flow through Nginx on port 80 or 443.

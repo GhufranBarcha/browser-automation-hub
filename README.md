@@ -12,12 +12,16 @@ Users log in, submit automation instructions (with optional PDF attachments), an
 ┌─────────────────────────────────────────────────┐
 │                   Frontend                       │
 │          React 19 + Vite + TailwindCSS           │
-│   Login → Dashboard → Task Detail (live steps)   │
+│   (Runs in User's Browser — talks to API via 80) │
 └──────────────────┬──────────────────────────────┘
-                   │  /api/*
+                   │  /api/* (Port 80/443)
 ┌──────────────────▼──────────────────────────────┐
 │                   Backend                        │
-│              FastAPI + Uvicorn                    │
+│              Nginx (Gatekeeper)                  │
+│                   │                              │
+│         [Local Proxy to :8000]                   │
+│                   ▼                              │
+│          FastAPI App (Private)                   │
 │                                                  │
 │  ┌──────────┐  ┌──────────┐  ┌───────────────┐  │
 │  │  Auth    │  │  Tasks   │  │   Worker      │  │
@@ -29,10 +33,6 @@ Users log in, submit automation instructions (with optional PDF attachments), an
 │  │  browser-use SDK → Playwright → Chromium    │  │
 │  │  Claude LLM drives each step                │  │
 │  └─────────────────────────────────────────────┘  │
-│                                                  │
-│  ┌──────────────────┐                            │
-│  │  SQLite (async)  │  tasks, events, status     │
-│  └──────────────────┘                            │
 └──────────────────────────────────────────────────┘
 ```
 

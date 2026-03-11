@@ -5,7 +5,7 @@ import { api } from '../api/client';
 import type { Task, QueueSummary } from '../api/types';
 import { SubmitForm } from '../components/SubmitForm';
 import { TaskTable } from '../components/TaskTable';
-import { LogOut, Activity } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 
 export function DashboardPage() {
   const navigate = useNavigate();
